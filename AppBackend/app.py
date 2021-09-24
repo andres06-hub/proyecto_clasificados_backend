@@ -115,6 +115,7 @@ def get_signUp():
         #  Obtengo los resultados
         #  Si obtenemos al menos un resultado
         return resultado > 0
+        
     
     def registrarUsuario(usuario: Usuario):
         # Crear conexion
