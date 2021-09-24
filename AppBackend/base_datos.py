@@ -4,7 +4,7 @@ def crear_conexion():
     HOST = 'localhost'
     PORT = 3306
     USER = 'root'
-    PASS = '0606'
+    PASS = '12345'
     DB = 'clasificados_db'
     return pymysql.connect(
         host=HOST,

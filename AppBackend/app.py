@@ -57,16 +57,20 @@ def get_usuarios():
 @app.route('/api/v1/login', methods=['POST'])
 def get_login():
 
-    correo = request.json['correo'] 
-    password = request.json['password'] 
-
+    if 'correo' in request.json and 'password' in request.json:
+        correo = request.json['correo'] 
+        password = request.json['password']
+    else:
+        return jsonify({
+            'message':'No se han ingresado los valores necesarios'
+        })
 
     # obtengo los datos del usuario
     conexion = crear_conexion()
     # obtengo el cursor
     cursor = conexion.cursor()
     #  Ejecuto el comando de seleccion
-    cursor.execute(f"SELECT password, id FROM usuarios WHERE email='{correo}'")
+    cursor.execute(f"SELECT password, id FROM usuarios WHERE correo='{correo}'")
     # Obtengo los resultados
     resultado = cursor.fetchone()
     # cerrar la conexion
