@@ -20,6 +20,7 @@ CREATE TABLE usuarios(
 CREATE TABLE publicaciones(
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     fechinicial DATETIME,
+    fechfin DATETIME,
     ciudad CHAR(40),
     precio DOUBLE,
     contacto CHAR(50),
