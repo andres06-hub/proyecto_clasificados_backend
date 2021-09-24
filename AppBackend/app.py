@@ -30,7 +30,7 @@ import bcrypt
 
 # ----------------------------------------
 app = Flask('clasificados')
-
+app.secret_key = "a1d61wa5d46457856416a1ca1da3.wdad6w41d64wad3d4"
 
 
 # API REST workspace
@@ -57,16 +57,20 @@ def get_usuarios():
 @app.route('/api/v1/login', methods=['POST'])
 def get_login():
 
-    correo = request.json['correo'] 
-    password = request.json['password'] 
-
+    if 'correo' in request.json and 'password' in request.json:
+        correo = request.json['correo'] 
+        password = request.json['password']
+    else:
+        return jsonify({
+            'message':'No se han ingresado los valores necesarios'
+        })
 
     # obtengo los datos del usuario
     conexion = crear_conexion()
     # obtengo el cursor
     cursor = conexion.cursor()
     #  Ejecuto el comando de seleccion
-    cursor.execute(f"SELECT password, id FROM usuarios WHERE email='{correo}'")
+    cursor.execute(f"SELECT passwrd, id FROM usuarios WHERE correo='{correo}'")
     # Obtengo los resultados
     resultado = cursor.fetchone()
     # cerrar la conexion
@@ -109,13 +113,12 @@ def get_signUp():
         # Obtener cursor
         cursor = conexion.cursor()
         # Obtengo el usuario con el email que me entragan
-        cursor.execute(f'SELECT email FROM usuarios WHERE email="{correo}"')
+        cursor.execute(f'SELECT correo FROM usuarios WHERE correo="{correo}"')
         resultado = cursor.fetchone() 
         conexion.close()
         #  Obtengo los resultados
         #  Si obtenemos al menos un resultado
-        return resultado > 0
-        
+        return resultado and resultado > 0
     
     def registrarUsuario(usuario: Usuario):
         # Crear conexion
@@ -134,7 +137,7 @@ def get_signUp():
 
 
         # EJecutar el comando hacer insert a la DB
-        cursor.execute(f'INSERT INTO usuarios(nombres, apellidos, celular, correo, password) VALUES("{usuario.nombres}", "{usuario.apellidos}", "{usuario.celular}", "{usuario.correo}", "{hash_pwd}")')
+        cursor.execute(f'INSERT INTO usuarios(nombres, apellidos, telefono, correo, passwrd) VALUES("{usuario.nombres}", "{usuario.apellidos}", "{usuario.celular}", "{usuario.correo}", "{hash_pwd}")')
         # Hacer efectivo el registro
         conexion.commit()
         #  Cerrar la conexion

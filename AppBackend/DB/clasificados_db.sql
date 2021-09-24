@@ -12,7 +12,7 @@ CREATE TABLE usuarios(
     apellidos CHAR(60),
     telefono CHAR(20),
     correo CHAR(40),
-    password CHAR(40),
+    passwrd VARCHAR(256),
     esadmin BOOLEAN,
     estado BOOLEAN
 );
