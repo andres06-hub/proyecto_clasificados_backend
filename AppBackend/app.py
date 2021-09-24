@@ -29,7 +29,7 @@ import bcrypt
 
 
 # ----------------------------------------
-app = Flask('clasificados')
+app = Flask('clasificados2')
 
 
 
