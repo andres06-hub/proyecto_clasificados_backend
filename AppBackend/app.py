@@ -33,7 +33,7 @@ import bcrypt
 app = Flask('clasificados')
 app.secret_key = "a1d61wa5d46457856416a1ca1da3.wdad6w41d64wad3d4"
 
-CORS(app);
+CORS(app)
 
 # API REST workspace
 
@@ -94,7 +94,7 @@ def get_login():
             session["usuario"] = correo
             session["id_usuario"] = id_usuario
 
-            return {'mensaje':'Logeado', 'statusCode': 200}
+            return {'mensaje':'Logueado', 'statusCode': 200}
         return {'mensaje':'Inicio de sesion incorrecto','statusCode': 404}
     return {'mensaje':'Usuario no registrado', 'statusCode': 404}
 
@@ -120,7 +120,7 @@ def get_signUp():
         conexion.close()
         #  Obtengo los resultados
         #  Si obtenemos al menos un resultado
-        return resultado and resultado > 0
+        return resultado and len(resultado) > 0
     
     def registrarUsuario(usuario: Usuario):
         # Crear conexion
@@ -163,10 +163,9 @@ def get_signUp():
 
     #  El usuario ya etsa registrado
     if usuarioRegistrado(usuario.correo):
-        return {'mensaje':'El usuario ya esta registrado', 'statusCode': 404}
-
+        return jsonify({'mensaje':'El usuario ya esta registrado', 'statusCode': 404})
     registrarUsuario(usuario)
-    return {'mensaje':"signUp successful", 'statusCode': 200}
+    return jsonify({'mensaje':"signUp successful", 'statusCode': 200})
     
 
 # API de obtener datos de publicacion
