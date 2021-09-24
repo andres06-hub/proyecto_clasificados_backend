@@ -23,7 +23,7 @@ CREATE TABLE publicaciones(
     ciudad CHAR(40),
     precio DOUBLE,
     contacto CHAR(50),
-    contenido VARCHAR(500),
+    contenido INT,
     titulo CHAR(50),
     idusuario INT,
     estado BOOLEAN
@@ -37,7 +37,6 @@ CREATE TABLE imagenes(
 -- 4
 CREATE TABLE contenido(
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    idpublicacion INT, 
     tipoinmueble CHAR(20),
     metroscuadrados DOUBLE,
     habitaciones CHAR(20),
@@ -49,11 +48,9 @@ CREATE TABLE contenido(
 
 -- FK 
 ALTER TABLE publicaciones
+	ADD FOREIGN KEY (contenido) REFERENCES contenido(id),
 	ADD FOREIGN KEY (idusuario) REFERENCES usuarios (id);
     
 ALTER TABLE imagenes
-	ADD FOREIGN KEY (idpublicacion) REFERENCES publicaciones(id);
-    
-ALTER TABLE contenido
 	ADD FOREIGN KEY (idpublicacion) REFERENCES publicaciones(id);
     
