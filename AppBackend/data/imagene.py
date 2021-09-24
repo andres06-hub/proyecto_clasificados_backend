@@ -1,5 +1,5 @@
 
 class imagen():
     
-    def __init__():
-        pass
+    def __init__(self) -> None:
+        self.imagen = None
