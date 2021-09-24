@@ -13,8 +13,8 @@ CREATE TABLE usuarios(
     telefono CHAR(20),
     correo CHAR(40),
     passwrd VARCHAR(256),
-    esadmin BOOLEAN,
-    estado BOOLEAN
+    esadmin BOOLEAN DEFAULT FALSE,
+    estado BOOLEAN DEFAULT TRUE
 );
 -- 2
 CREATE TABLE publicaciones(
@@ -26,7 +26,7 @@ CREATE TABLE publicaciones(
     contenido INT,
     titulo CHAR(50),
     idusuario INT,
-    estado BOOLEAN
+    estado BOOLEAN DEFAULT TRUE
 );
 -- 3
 CREATE TABLE imagenes(
@@ -53,4 +53,7 @@ ALTER TABLE publicaciones
     
 ALTER TABLE imagenes
 	ADD FOREIGN KEY (idpublicacion) REFERENCES publicaciones(id);
+
+ALTER TABLE publicaciones
+ADD FOREIGN KEY (idusuario) REFERENCES contenido(id);
     
